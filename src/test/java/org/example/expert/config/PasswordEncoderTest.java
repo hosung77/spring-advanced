@@ -20,9 +20,12 @@ class PasswordEncoderTest {
         String encodedPassword = passwordEncoder.encode(rawPassword);
 
         // when
-        boolean matches = passwordEncoder.matches(encodedPassword, rawPassword);
+        boolean matches = passwordEncoder.matches(rawPassword, encodedPassword);
 
         // then
         assertTrue(matches);
+
+        // 해결방법 -> 기존 true를 기대했지만 false가 뜸. 그 이유는 matches의 매개변수를 잘못 넣어져 있었다.
+        // 제대로 넣어서 해결
     }
 }
