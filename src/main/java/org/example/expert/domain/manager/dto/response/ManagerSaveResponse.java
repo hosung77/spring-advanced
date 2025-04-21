@@ -13,4 +13,8 @@ public class ManagerSaveResponse {
         this.id = id;
         this.user = user;
     }
+
+    public static ManagerSaveResponse of(Long id, UserResponse user){
+        return new ManagerSaveResponse(id, user);
+    }
 }

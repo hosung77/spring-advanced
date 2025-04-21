@@ -34,4 +34,10 @@ public class Comment extends Timestamped {
     public void update(String contents) {
         this.contents = contents;
     }
+
+    public static Comment of(String contents, User user, Todo todo){
+        return new Comment(contents,user,todo);
+
+    }
+
 }

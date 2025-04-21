@@ -31,21 +31,23 @@ public class TodoService {
 
         String weather = weatherClient.getTodayWeather();
 
-        Todo newTodo = new Todo(
+        Todo newTodo = Todo.of(
                 todoSaveRequest.getTitle(),
                 todoSaveRequest.getContents(),
                 weather,
                 user
         );
+
         Todo savedTodo = todoRepository.save(newTodo);
 
-        return new TodoSaveResponse(
+        return TodoSaveResponse.of(
                 savedTodo.getId(),
                 savedTodo.getTitle(),
                 savedTodo.getContents(),
                 weather,
                 new UserResponse(user.getId(), user.getEmail())
         );
+
     }
 
     public Page<TodoResponse> getTodos(int page, int size) {
@@ -53,24 +55,15 @@ public class TodoService {
 
         Page<Todo> todos = todoRepository.findAllByOrderByModifiedAtDesc(pageable);
 
-        return todos.map(todo -> new TodoResponse(
-                todo.getId(),
-                todo.getTitle(),
-                todo.getContents(),
-                todo.getWeather(),
-                new UserResponse(todo.getUser().getId(), todo.getUser().getEmail()),
-                todo.getCreatedAt(),
-                todo.getModifiedAt()
-        ));
+        return todos.map(TodoResponse::from);
     }
 
     public TodoResponse getTodo(long todoId) {
-        Todo todo = todoRepository.findById(todoId)
-                .orElseThrow(() -> new InvalidRequestException("Todo not found"));
+        Todo todo = todoRepository.findByIdOrElseThrow(todoId);
 
         User user = todo.getUser();
 
-        return new TodoResponse(
+        return TodoResponse.of(
                 todo.getId(),
                 todo.getTitle(),
                 todo.getContents(),

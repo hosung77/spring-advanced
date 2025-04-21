@@ -45,4 +45,9 @@ public class Todo extends Timestamped {
         this.title = title;
         this.contents = contents;
     }
+
+    public static Todo of(String title, String contents, String weather, User user){
+        return new Todo(title,contents,weather,user);
+    }
+
 }

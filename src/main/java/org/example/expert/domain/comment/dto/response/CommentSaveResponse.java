@@ -15,4 +15,9 @@ public class CommentSaveResponse {
         this.contents = contents;
         this.user = user;
     }
+
+    public static CommentSaveResponse from(Long id, String contents, UserResponse user){
+        return new CommentSaveResponse(id,contents,user);
+    }
+
 }
