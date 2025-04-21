@@ -19,4 +19,8 @@ public class TodoSaveResponse {
         this.weather = weather;
         this.user = user;
     }
+
+    public static TodoSaveResponse of(Long id, String title, String contents, String weather, UserResponse user){
+        return new TodoSaveResponse(id,title,contents,weather,user);
+    }
 }

@@ -1,7 +1,9 @@
 package org.example.expert.domain.comment.dto.response;
 
 import lombok.Getter;
+import org.example.expert.domain.comment.entity.Comment;
 import org.example.expert.domain.user.dto.response.UserResponse;
+import org.example.expert.domain.user.entity.User;
 
 @Getter
 public class CommentResponse {
@@ -15,4 +17,13 @@ public class CommentResponse {
         this.contents = contents;
         this.user = user;
     }
+
+    public static CommentResponse from(Comment comment){
+        User user = comment.getUser();
+        return new CommentResponse(
+                comment.getId(),
+                comment.getContents(),
+                new UserResponse(user.getId(), user.getEmail()));
+    }
+
 }
